@@ -5,55 +5,94 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <title>Hello, world!</title>
+    <title>Hacker News Notifications</title>
+
+    <style>
+        .title {
+            letter-spacing: -1px;
+            color: #FD6721
+        }
+    </style>
 </head>
 
 <body>
     <div class="col-lg-8 mx-auto p-3 py-md-5">
-        <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-            <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" class="me-2" viewBox="0 0 118 94" role="img">
-                    <title>Bootstrap</title>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z" fill="currentColor"></path>
-                </svg>
-                <span class="fs-4">Starter template</span>
-            </a>
+        <header class="pb-3 mb-4 border-bottom">
+
+            <div class="row justify-content-between">
+                <div class="col-8">
+                    <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                        <h1 class="title"><strong>Hacker News Notifications</strong></h1>
+                    </a>
+                </div>
+                <div class="col-4 d-flex flex-row-reverse">
+                    <a target="_blank" href="https://github.com/mavci/hn-notifications"><img width="50" src="/assets/img/github.png"></a>
+                </div>
+            </div>
         </header>
-
+        <div class="small alert alert-warning">This is a third-party, unofficial, open-source service and not affiliated with Hacker News or YC.</div>
         <main>
-            <h1>Get started with Bootstrap</h1>
-            <p class="fs-5 col-md-8">Quickly and easily get started with Bootstrap's compiled, production-ready files with this barebones example featuring some basic HTML and helpful links. Download all our examples to get started.</p>
+            <p>Hacker News is part of my daily life. I try to follow the top stories every day when I have the opportunity. In order not to miss important stories on my busy days, I prepared a notification service. It was a very simple, 43-line PHP script that sends me notifications for stories with over 200 points. I have been using this service for 7 months and I no longer worry about missing important stories.</p>
 
-            <div class="mb-5">
-                <a href="/docs/5.1/examples/" class="btn btn-primary btn-lg px-4">Download examples</a>
+            <p>Finally, I made this service available to everyone so that it can be useful to others. I have also obtained the necessary permissions from the HN moderators to share such a service with you. So, I hope you will not miss important stories from this awesome platform with the help of this service. Also when I share this service with HN, I hope I will receive this story as a notification.</p>
+            <div class="card bg-light">
+                <div class="card-body">
+                    <form class="row row-cols-lg-auto g-3 align-items-center">
+                        <div class="col-12">
+                            Send me a push notifications if a story gets more than
+                        </div>
+                        <div class="col-12">
+                            <select class="form-select" aria-label="Default select example">
+                                <option>50</option>
+                                <option>100</option>
+                                <option>150</option>
+                                <option selected>200</option>
+                                <option>250</option>
+                                <option>300</option>
+                                <option>350</option>
+                                <option>400</option>
+                                <option>450</option>
+                                <option>500</option>
+                                <option>550</option>
+                                <option>600</option>
+                                <option>650</option>
+                                <option>700</option>
+                                <option>750</option>
+                                <option>800</option>
+                                <option>850</option>
+                                <option>900</option>
+                                <option>950</option>
+                                <option>1000</option>
+                                <option>1500</option>
+                                <option>2000</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            score.
+                        </div>
+                        <div class="col-12">
+                            <a href="{{ $subscribe_url }}" class="btn btn-primary">Subscribe with Pushover</a>
+                        </div>
+                    </form>
+                </div>
             </div>
 
-            <hr class="col-3 col-md-2 mb-5">
+            <hr>
 
-            <div class="row g-5">
+            <div class="row mt-4">
                 <div class="col-md-6">
-                    <h2>Starter projects</h2>
-                    <p>Ready to beyond the starter template? Check out these open source projects that you can quickly duplicate to a new GitHub repository.</p>
-                    <ul class="icon-list">
-                        <li><a href="https://github.com/twbs/bootstrap-npm-starter" rel="noopener" target="_blank">Bootstrap npm starter</a></li>
-                        <li class="text-muted">Bootstrap Parcel starter (coming soon!)</li>
-                    </ul>
+                    <h2>To Unsubscribe</h2>
+                    <p>Go to your <a target="_blank" href="https://pushover.net">pushover.net</a> dashboard and click "Edit or Unsubscribe" link at "Hacker News" application and then click unsubscribe. Or click "Subscribe with Pushover" button above and click unsubscribe.</p>
                 </div>
 
                 <div class="col-md-6">
-                    <h2>Guides</h2>
-                    <p>Read more detailed instructions and documentation on using or contributing to Bootstrap.</p>
-                    <ul class="icon-list">
-                        <li><a href="/docs/5.1/getting-started/introduction/">Bootstrap quick start guide</a></li>
-                        <li><a href="/docs/5.1/getting-started/webpack/">Bootstrap Webpack guide</a></li>
-                        <li><a href="/docs/5.1/getting-started/parcel/">Bootstrap Parcel guide</a></li>
-                        <li><a href="/docs/5.1/getting-started/contribute/">Contributing to Bootstrap</a></li>
-                    </ul>
+                    <h2>Future Features</h2>
+                    <p>I am planning to add keyword and comment reply notifications too. But to make it simple and start with MVP, I want to share with this first main feature. So instead of waiting more, you can start using main feature already.</p>
                 </div>
             </div>
         </main>
-        <footer class="pt-5 my-5 text-muted border-top">
-            Created by the Bootstrap team &middot; &copy; 2021
+        <footer class="pt-5 text-muted border-top">
+            <a href="https://github.com/mavci/hn-notifications" target="_blank">GitHub</a> &middot; 2022
         </footer>
     </div>
 

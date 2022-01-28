@@ -14,5 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    $subscribe_url = config('pushover.url')
+        .'?success='.urlencode(config('app.url').'?success=1')
+        .'&failure='.urlencode(config('app.url').'?failed=1');
+
+    return view('index', compact('subscribe_url'));
 });
