@@ -1,0 +1,44 @@
+<?php
+
+$files = glob("/home/hackernews/log/*");
+$now   = time();
+
+foreach ($files as $file) {
+    if (is_file($file)) {
+        if ($now - filemtime($file) >= 60 * 60 * 24) {
+            unlink($file);
+        }
+    }
+}
+
+$top_stories = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty';
+
+$stories = json_decode(file_get_contents($top_stories));
+$stories = array_slice($stories, 0, 30);
+
+function push($title, $url)
+{
+    curl_setopt_array($ch = curl_init(), array(
+        CURLOPT_URL => "https://api.pushover.net/1/messages.json",
+        CURLOPT_POSTFIELDS => array(
+            "token" => "...",
+            "user" => "...",
+            "message" => $title,
+            "device" => "iPhone",
+            "url" => $url,
+            "sound" => "none"
+        ),
+        CURLOPT_SAFE_UPLOAD => true,
+        CURLOPT_RETURNTRANSFER => true,
+    ));
+    curl_exec($ch);
+    curl_close($ch);
+}
+
+foreach ($stories as $story_id) {
+    $story = json_decode(file_get_contents('https://hacker-news.firebaseio.com/v0/item/' . $story_id . '.json'));
+    if ($story->score >= 200 && !file_exists('/home/hackernews/log/' . $story_id)) {
+        push($story->title, $story->url);
+        touch('/home/hackernews/log/' . $story_id);
+    }
+}
