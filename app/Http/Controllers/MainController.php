@@ -41,11 +41,13 @@ class MainController extends Controller
         } else {
             $subscriber = Subscriber::where('key', $request->pushover_user_key)->first();
 
-            if ($subscriber && $subscriber->score != $request->score) {
-                Pushover::deleteUserFromGroup($groups[$subscriber->score], $subscriber->key);
-                Pushover::addUserToGroup($groups[$request->score], $subscriber->key);
+            if ($subscriber) {
+                if ($subscriber->score != $request->score) {
+                    Pushover::deleteUserFromGroup($groups[$subscriber->score], $subscriber->key);
+                    Pushover::addUserToGroup($groups[$request->score], $subscriber->key);
 
-                $subscriber->update(['score' => $request->score]);
+                    $subscriber->update(['score' => $request->score]);
+                }
             } else {
                 $subscriber = Subscriber::create([
                     'key' => $request->pushover_user_key,
