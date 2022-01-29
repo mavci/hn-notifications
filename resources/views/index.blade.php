@@ -4,13 +4,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-dark.min.css" rel="stylesheet">
+
+    <meta name="theme-color" content="#111111" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#eeeeee" media="(prefers-color-scheme: dark)">
+
     <title>Hacker News Notifications</title>
 
     <style>
         .title {
             letter-spacing: -1px;
             color: #FD6721
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .github-logo {
+                filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(237deg) brightness(103%) contrast(102%);
+            }
         }
     </style>
 </head>
@@ -26,7 +38,9 @@
                     </a>
                 </div>
                 <div class="col-4 d-flex flex-row-reverse">
-                    <a target="_blank" href="https://github.com/mavci/hn-notifications"><img width="50" src="/assets/img/github.png"></a>
+                    <a target="_blank" href="https://github.com/mavci/hn-notifications">
+                        <img class="github-logo" width="50" src="/assets/img/github.svg">
+                    </a>
                 </div>
             </div>
         </header>
