@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $subscribe_url = config('pushover.url')
-        .'?success='.urlencode(config('app.url').'?success=1')
-        .'&failure='.urlencode(config('app.url').'?failed=1');
-
-    return view('index', compact('subscribe_url'));
-});
+Route::get('/', [MainController::class, 'index']);
+Route::get('/subscribe', [MainController::class, 'subscribe']);

@@ -56,40 +56,33 @@
                             Send me a push notifications if a story gets more than
                         </div>
                         <div class="col-12">
-                            <select class="form-select" aria-label="Default select example">
-                                <option>50</option>
-                                <option>100</option>
-                                <option>150</option>
-                                <option selected>200</option>
-                                <option>250</option>
-                                <option>300</option>
-                                <option>350</option>
-                                <option>400</option>
-                                <option>450</option>
-                                <option>500</option>
-                                <option>550</option>
-                                <option>600</option>
-                                <option>650</option>
-                                <option>700</option>
-                                <option>750</option>
-                                <option>800</option>
-                                <option>850</option>
-                                <option>900</option>
-                                <option>950</option>
-                                <option>1000</option>
-                                <option>1500</option>
-                                <option>2000</option>
+                            <select class="form-select" id="score">
+                                @foreach ($allowed_scores as $_score)
+                                <option{{ $_score == $score ? ' selected' : ''}}>{{ $_score }}</option>
+                                    @endforeach
                             </select>
                         </div>
                         <div class="col-12">
                             score.
                         </div>
                         <div class="col-12">
-                            <a href="{{ $subscribe_url }}" class="btn btn-primary">Subscribe with Pushover</a>
+                            <a id="subscribe" href="#" class="btn btn-primary">Subscribe with Pushover</a>
                         </div>
                     </form>
                 </div>
             </div>
+
+            @if (Request::has('failure'))
+            <div class="small alert alert-danger mt-3">Subscribe request failed, please try again.</div>
+            @endif
+
+            @if (session('success'))
+            <div class="small alert alert-success mt-3">You are successfuly subscribed for {{ $score }} score stories.</div>
+            @endif
+
+            @if (session('unsubscribed'))
+            <div class="small alert alert-success mt-3">You are successfuly unsubscribed.</div>
+            @endif
 
             <hr>
 
@@ -109,6 +102,28 @@
             <a href="https://github.com/mavci/hn-notifications" target="_blank">GitHub Repository</a> &middot; 2022
         </footer>
     </div>
+
+    <script>
+        const APP_URL = "{{ $app_url }}";
+        const SUBSCRIBE_URL = "{{ $subscribe_url }}";
+        const NONCE = "{{ session('nonce') }}";
+        var score = "{{ $score }}";
+
+        function updateSubscribeLink(score) {
+            let URL = SUBSCRIBE_URL +
+                '?success=' + escape(APP_URL + '/subscribe?success=1&score=' + score + '&nonce=' + NONCE) +
+                '&failure=' + escape(APP_URL + '?failure=1&nonce=' + NONCE);
+
+            document.getElementById('subscribe').href = URL;
+        }
+
+        updateSubscribeLink(score);
+
+        document.getElementById('score').onchange = function(event) {
+            score = this.value
+            updateSubscribeLink(score);
+        }
+    </script>
 
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
 </body>
