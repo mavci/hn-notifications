@@ -35,4 +35,20 @@ class Pushover
 
         return $response->json()['status'] == 1;
     }
+
+    public function addUserToGroup($groupKey, $userKey)
+    {
+        return $this->http->post('groups/'.$groupKey.'/add_user.json', [
+            'token' => $this->token,
+            'user' => $userKey
+        ]);
+    }
+
+    public function deleteUserFromGroup($groupKey, $userKey)
+    {
+        return $this->http->post('groups/' . $groupKey . '/delete_user.json', [
+            'token' => $this->token,
+            'user' => $userKey
+        ]);
+    }
 }

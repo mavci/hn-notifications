@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\Pushover;
 use App\Models\Subscriber;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -26,10 +27,13 @@ class MainController extends Controller
             return redirect('/');
         }
 
+        $groups = config('pushover.groups');
+
         if ($request->pushover_unsubscribed) {
             $subscriber = Subscriber::where('key', $request->pushover_unsubscribed_user_key)->first();
 
             if ($subscriber) {
+                Pushover::deleteUserFromGroup($groups[$subscriber->score], $subscriber->key);
                 $subscriber->delete();
             }
 
@@ -37,13 +41,18 @@ class MainController extends Controller
         } else {
             $subscriber = Subscriber::where('key', $request->pushover_user_key)->first();
 
-            if ($subscriber) {
+            if ($subscriber && $subscriber->score != $request->score) {
+                Pushover::deleteUserFromGroup($groups[$subscriber->score], $subscriber->key);
+                Pushover::addUserToGroup($groups[$request->score], $subscriber->key);
+
                 $subscriber->update(['score' => $request->score]);
             } else {
-                Subscriber::create([
+                $subscriber = Subscriber::create([
                     'key' => $request->pushover_user_key,
                     'score' => $request->score
                 ]);
+
+                Pushover::addUserToGroup($groups[$subscriber->score], $subscriber->key);
             }
 
             return redirect('/')->with('success', 1)->with('score', $request->score);
