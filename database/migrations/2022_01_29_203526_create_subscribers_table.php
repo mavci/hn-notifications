@@ -15,7 +15,7 @@ class CreateSubscribersTable extends Migration
     {
         Schema::create('subscribers', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->index();
+            $table->string('key', 30)->index();
             $table->unsignedSmallInteger('score')->index();
             $table->timestamps();
         });
