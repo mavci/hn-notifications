@@ -15,7 +15,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('app:check-stories')->everyThreeMinutes();
+        $schedule->command('app:check-stories')
+            ->everyThreeMinutes()
+            ->onOneServer()
+            ->withoutOverlapping();
     }
 
     /**
