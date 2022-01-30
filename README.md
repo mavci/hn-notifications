@@ -25,12 +25,16 @@ Finally, I made this service available to everyone so that it can be useful to o
 ```bash
 cp docker/mysql/.env.example docker/mysql/.env
 cp .env.example .env
-# Update the .env file to put your Pushover app token (PUSHOVER_APP_TOKEN and PUSHOVER_APP_URL)
+# Update the following environment variables inside .env file
+# Pushover app token (PUSHOVER_APP_TOKEN and PUSHOVER_APP_URL)
+# Pushover groups keys (PUSHOVER_..._SCORE_GROUP_KEY)
+# UID for proccess user, make sure files also 'chown'ed with that UID
 
 docker-compose pull
 docker-compose up -d
 docker-compose exec php composer install
 docker-compose exec php php artisan key:generate
+docker-compose exec php php artisan migrate
 ```
 
 ## Build PHP FPM Docker image

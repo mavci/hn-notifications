@@ -19,6 +19,7 @@ services:
   php:
     <<: *restart-policy
     image: ghcr.io/mavci/hnn-php-fpm
+    user: "${UID}"
     volumes:
       - ./:/var/www/app
     depends_on:
