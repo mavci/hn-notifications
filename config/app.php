@@ -228,8 +228,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'HN' => \App\Facades\HNFacade::class,
-        'Pushover' => \App\Facades\PushoverFacade::class,
+        'HN' => \App\Facades\HN::class,
+        'Pushover' => \App\Facades\Pushover::class,
 
     ],
 
