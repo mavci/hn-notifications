@@ -6,9 +6,11 @@
 
 Finally, I made this service available to everyone so that it can be useful to others. I have also obtained the necessary permissions from the HN moderators to share such a service with you. So, I hope you will not miss important stories from this awesome platform with the help of this service. Also when I share this service with HN, I hope I will receive this story as a notification.
 
+### https://hnn.avci.me
+
 ## Roadmap
 
-- [ ] Send notification for the top story with the desired score
+- [x] Send notification for the top story with the desired score
 - [ ] Send notification for stories with requested keywords
 - [ ] Send notification for replies to my comments
 
