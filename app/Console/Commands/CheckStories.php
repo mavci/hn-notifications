@@ -54,7 +54,7 @@ class CheckStories extends Command
 
             foreach ($groups as $score => $group_key) {
                 if (! in_array($score, $skip_groups) && $story['score'] >= $score && ! Cache::get($score . '/' . $story_id)) {
-                    $url = isset($story['url']) ? $story['url'] : 'https://news.ycombinator.com/item?id=' . $story_id;
+                    $url = 'https://news.ycombinator.com/item?id=' . $story_id;
                     Pushover::send($group_key, $story['title'], $url);
                     Cache::put($score . '/' . $story_id, 1, now()->addDays(3));
                     $skip_groups[] = $score;
