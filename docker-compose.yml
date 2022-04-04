@@ -48,6 +48,7 @@ services:
       - ${DOCKER_SOCKET}:/var/run/docker.sock:ro
 
   mysql:
+    <<: *restart-policy
     image: mysql:8
     env_file: ./docker/mysql/.env
     cap_add:
